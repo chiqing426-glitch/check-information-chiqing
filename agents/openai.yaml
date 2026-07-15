@@ -1,0 +1,4 @@
+interface:
+  display_name: "CheckInformation/chiqing"
+  short_description: "核实文案链接视频，找教程素材并改写中文短视频口播稿"
+  default_prompt: "调用 $check-information-chiqing，核实这份文案、链接或视频，找教程与延展素材并改成口播稿。"
