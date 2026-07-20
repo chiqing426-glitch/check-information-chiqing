@@ -1,6 +1,13 @@
 # Changelog
 
-## 0.1.0 — 2026-07-15
+## 0.1.0-alpha - 2026-07-20
+
+- Added Douyin public-link ingestion, loopback browser companion, local transcription, and Tencent Cloud Flash ASR optional backend.
+- Added explicit user-owned Tencent Cloud credential configuration prompt.
+- Added repository validation, secret scan, local test runner, and security policy.
+- Changed repository license to Apache-2.0 for clearer patent terms.
+
+## 0.0.1 - 2026-07-15
 
 - 首次公开版本。
 - 支持文案、链接、视频三类输入。

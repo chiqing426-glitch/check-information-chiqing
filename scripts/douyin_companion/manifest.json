@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "CheckInformation Douyin Companion",
+  "version": "0.1.1",
+  "description": "把当前抖音作品的临时媒体轨道交给本机 CheckInformation Skill，不读取或导出 Cookie。",
+  "permissions": ["webRequest"],
+  "host_permissions": [
+    "https://www.douyin.com/*",
+    "https://*.douyinvod.com/*",
+    "http://127.0.0.1:17321/*"
+  ],
+  "background": {
+    "service_worker": "service-worker.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "CheckInformation 抖音读取伴侣"
+  }
+}

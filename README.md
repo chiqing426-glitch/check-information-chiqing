@@ -1,84 +1,124 @@
 # CheckInformation/chiqing
 
-面向短视频创作者和前沿科技使用者的 Codex Skill：核实文案、链接或视频里的事实主张，找到实操教程与延展素材，标记素材的下载和复用状态，并改写为可拍摄的中文口播稿。
+`CheckInformation/chiqing` is a Codex Skill for Chinese short-form creators and frontier-tech users. It helps an agent read scripts, links, or videos; extract claims; verify time-sensitive product statements; find tutorials and supporting material; label media reuse rights; and rewrite the result into a shoot-ready Chinese talking-head script.
 
-> 这不是通用新闻调查工具，也不替代法律意见或专业尽调。
+This project is not legal advice, a universal news investigation tool, or a bypass for platform access controls.
 
-## 能解决什么
+## Status
 
-- 看见一条科技或商业短视频后，快速判断哪些内容真实、夸大、过时或无法证实。
-- 从官方公告、帮助中心、原始资料和可信媒体中找到可引用依据。
-- 区分“证据素材”“实操教程”“延展素材”和“风险反例”。
-- 把“能下载”和“能剪进成片”分开标注，避免把公开视频误当作可商用素材。
-- 将核验结果改写成适合中文短视频拍摄的口播稿。
+This repository is ready for `v0.1.0-alpha` use. Treat platform video ingestion as experimental because Douyin, WeChat Channels, and browser behavior can change without notice.
 
-## 支持的输入
+| Capability | Status | Notes |
+| --- | --- | --- |
+| Script fact-checking | Usable | Works from user-provided text. |
+| Public webpage fact-checking | Usable | Depends on the agent's available browsing tools. |
+| Local audio/video transcription | Usable | Uses `faster-whisper` after optional setup. |
+| Public Douyin link ingestion | Experimental | Uses `yt-dlp`; may fail under platform risk controls. |
+| Logged-in Douyin browser companion | Experimental | Captures only `*.douyinvod.com` `/media-audio-*` requests over loopback; no cookies. |
+| WeChat Channels `weixin.qq.com/sph` | Partial | No stable automatic transcript connector yet. Ask the user for transcript, subtitle, screenshots, or upload. |
+| Tencent Cloud Flash ASR | Optional | User must configure their own credentials locally. Disabled unless explicitly used. |
+| External media download | Restricted | Download only when source explicitly permits it; reuse requires a separate license basis. |
 
-| 输入 | 示例 |
-|---|---|
-| 文案 | “核实这篇AI产品口播，找教程并改成可拍版本。” |
-| 链接 | “核实这个发布页的说法，并找能合法使用的演示素材。” |
-| 视频 | “核实这条视频里的主张，找原始教程和扩展资料。” |
+## Install
 
-视频无法读取或没有可靠字幕时，Skill 会要求提供字幕、截图或原始文案，而不是根据标题猜测内容。
+Clone the repository into your Codex skills directory:
 
-## 输出结构
-
-1. 一句话结论
-2. 事实核验表
-3. 教程与延展素材清单
-4. 素材版权与使用说明
-5. 可直接拍摄的口播稿
-
-## 安装
-
-将此仓库克隆或下载到本地后，把整个 `check-information-chiqing` 文件夹放进你的 Codex Skills 目录：
-
-```text
-~/.codex/skills/check-information-chiqing/
+```bash
+mkdir -p ~/.codex/skills
+git clone <repo-url> ~/.codex/skills/check-information-chiqing
 ```
 
-重启或刷新 Codex 后调用：
+Restart or refresh Codex, then call:
 
 ```text
-调用 check-information-chiqing，核实这篇内容，找对应教程与延展视频，并改成口播稿。
+调用 check-information-chiqing，核实这篇内容，找教程与延展素材，并改成口播稿。
 ```
 
-## 素材版权原则
+## Optional Video Stack
 
-Skill 为每条素材单独标记下载与复用状态：
+Local video transcription requires Python 3.12+ and FFmpeg:
 
-- **可下载且可复用**：来源或许可证明确允许当前用途。
-- **可下载，复用未证实**：可供个人核验，不应直接剪入成片。
-- **仅链接参考**：可以观看学习，不下载、不交付。
-- **不建议使用**：授权、肖像、隐私或安全风险不清楚。
+```bash
+cd ~/.codex/skills/check-information-chiqing
+bash scripts/install-video-stack.sh
+```
 
-官方账号、下载按钮、公开视频都不自动等于可商用或可二创。详细规则见 [版权标签规范](references/rights-labels.md)。
+Then test a local media file:
 
-## 项目结构
+```bash
+.runtime/bin/python scripts/video_ingest.py "/path/to/video.mp4" --output /tmp/check-information-video.json
+```
+
+## Optional Tencent Cloud ASR
+
+Tencent Cloud ASR is only for cases where local `faster-whisper` is not good enough and the user explicitly agrees to submit the temporary analysis audio to Tencent Cloud.
+
+Configure these variables in your own local shell or secret manager:
+
+```bash
+export TENCENTCLOUD_APPID=""
+export TENCENTCLOUD_SECRET_ID=""
+export TENCENTCLOUD_SECRET_KEY=""
+```
+
+Purpose reminder for users: these values are used only to submit the current temporary analysis audio to Tencent Cloud Flash ASR and receive a transcript. Do not paste real values into a chat, command arguments, Skill files, Git commits, examples, issue reports, or logs.
+
+If these variables are missing, the Skill should keep using local transcription or ask the user for subtitles/transcript.
+
+## Douyin Companion
+
+The Chrome companion is an experimental fallback when a public Douyin page plays in the user's logged-in browser but public extraction fails.
+
+1. Open Chrome extensions.
+2. Enable developer mode.
+3. Load unpacked extension from `scripts/douyin_companion/`.
+4. Start the loopback bridge:
+
+```bash
+.runtime/bin/python scripts/douyin_capture_bridge.py --output-dir "$(mktemp -d)" --timeout 120
+```
+
+The companion does not request cookie permission. The bridge accepts only loopback requests, validates the Douyin work id, accepts only `*.douyinvod.com` `/media-audio-*` tracks, and stores the media as an analysis copy only.
+
+## Output Contract
+
+By default the Skill returns five sections:
+
+1. One-line conclusion.
+2. Fact-check table.
+3. Tutorial and extended material list.
+4. Media rights and usage notes.
+5. Shoot-ready Chinese talking-head script.
+
+## Development
+
+Run local checks:
+
+```bash
+python3 scripts/validate_skill.py .
+python3 scripts/secret_scan.py .
+python3 -m unittest discover -s scripts -p "test_*.py" -v
+node scripts/douyin_companion/test-media-rules.mjs
+```
+
+For full video tests, run `bash scripts/install-video-stack.sh` first.
+
+## Repository Layout
 
 ```text
 check-information-chiqing/
-├── SKILL.md                 # Codex 核心工作流
-├── agents/openai.yaml       # Codex 界面元数据
-├── references/              # 版权等按需读取的规则
-├── examples/                # 使用示例
-├── evals/                   # 回归测试题与通过条件
-├── CONTRIBUTING.md          # 贡献方式
-├── CHANGELOG.md             # 版本记录
-└── LICENSE                  # MIT License
+├── SKILL.md
+├── agents/openai.yaml
+├── references/
+├── scripts/
+├── examples/
+├── evals/
+├── SECURITY.md
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+└── LICENSE
 ```
-
-## 贡献
-
-欢迎提交：新的高质量案例、来源核验规则、版权判断改进、不同平台的口播模板，以及可复现的失败案例。提交前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)。
 
 ## License
 
-[MIT](LICENSE)
-
----
-
-## English summary
-
-`CheckInformation/chiqing` is a Codex Skill for Chinese short-form creators and frontier-tech users. It fact-checks scripts, links, or videos; finds tutorials and supporting media; labels download and reuse rights separately; and rewrites the result into a publishable Chinese talking-head script.
+Apache-2.0. See [LICENSE](LICENSE).

@@ -12,9 +12,14 @@
 ## 提交原则
 
 - 不提交用户隐私、未公开合同、账号凭证、客户数据或受版权限制的素材文件。
+- 不提交真实 `TENCENTCLOUD_APPID`、`TENCENTCLOUD_SECRET_ID`、`TENCENTCLOUD_SECRET_KEY` 或任何长期密钥；只允许提交空变量名和用途说明。
 - 案例必须提供可公开访问的来源链接、访问日期和预期判断。
 - 不把“有下载按钮”写成“允许二创”；明确说明下载与复用的依据。
-- 修改 `SKILL.md` 后，运行 `evals/README.md` 中的案例进行回归检查。
+- 修改 `SKILL.md`、连接器或脚本后，运行：
+
+```bash
+bash scripts/run_tests.sh
+```
 
 ## 风格
 
