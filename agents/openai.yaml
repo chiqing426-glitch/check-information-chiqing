@@ -1,4 +1,4 @@
 interface:
   display_name: "CheckInformation/chiqing"
-  short_description: "读取并核实文案、抖音或视频号链接，找素材并改写口播稿"
-  default_prompt: "调用 $check-information-chiqing，读取并核实这份文案、抖音或视频号链接及视频，找教程与延展素材并改成口播稿。"
+  short_description: "核实文案/链接/视频，找素材并改写中文口播稿；fact-check scripts, links, and videos for Chinese creators"
+  default_prompt: "调用 $check-information-chiqing，读取并核实这份文案、抖音或视频号链接及视频，找教程与延展素材并改成口播稿。 / Use $check-information-chiqing to fact-check this script/link/video, find tutorials and reference material, label rights, and rewrite it as a Chinese talking-head script."

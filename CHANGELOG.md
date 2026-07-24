@@ -5,6 +5,7 @@
 - Added Douyin public-link ingestion, loopback browser companion, local transcription, and Tencent Cloud Flash ASR optional backend.
 - Added explicit user-owned Tencent Cloud credential configuration prompt.
 - Added repository validation, secret scan, local test runner, and security policy.
+- Added bilingual public documentation and bilingual Skill discovery metadata.
 - Changed repository license to Apache-2.0 for clearer patent terms.
 
 ## 0.0.1 - 2026-07-15

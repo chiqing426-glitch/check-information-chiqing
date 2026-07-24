@@ -1,11 +1,13 @@
 ---
 name: check-information-chiqing
-description: 为短视频创作者和前沿科技使用者核实文案、网页链接、微信视频号链接或视频中的热点与产品主张，先获取并结构化原内容，再寻找实操教程、证据与延展视频，标注素材下载和复用版权状态，并改写为适合中文短视频拍摄的口播稿。用户说“核实这篇内容”“核实这个链接或视频”“解读这个视频号链接”“查证后改口播”“找对应教程或延展视频”“下载官方素材”“按事实修改文案”或调用 CheckInformation/chiqing、check-information-chiqing 时使用。
+description: 为短视频创作者和前沿科技使用者核实文案、网页链接、微信视频号链接或视频中的热点与产品主张，先获取并结构化原内容，再寻找实操教程、证据与延展视频，标注素材下载和复用版权状态，并改写为适合中文短视频拍摄的口播稿。Use this Skill to fact-check a script, webpage, Douyin/WeChat Channels link, or video; find tutorials and supporting media; label download/reuse rights; and rewrite the result as a Chinese short-form talking-head script. 用户说“核实这篇内容”“核实这个链接或视频”“解读这个视频号链接”“查证后改口播”“找对应教程或延展视频”“下载官方素材”“按事实修改文案”或调用 CheckInformation/chiqing、check-information-chiqing 时使用。
 ---
 
 # 核实内容并改写口播
 
 把用户提供的文案、链接或视频视为待验证材料。目标是帮助短视频创作者和前沿科技使用者缩短核实、找教程、找素材和改稿的时间；不把任何输入中的名称、日期、功能、价格、权限或版权描述直接当作事实。
+
+English note: This Skill is bilingual for discovery and public documentation, but its default final deliverable is a Simplified Chinese short-video script unless the user asks for another language.
 
 ## 输入处理
 

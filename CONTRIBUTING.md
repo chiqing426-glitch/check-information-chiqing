@@ -1,5 +1,7 @@
 # Contributing
 
+English summary: Contributions should make this Skill more accurate, reproducible, or safer for media rights handling. Bilingual documentation is welcome, but do not submit private data, secrets, downloaded media, or copyrighted material without a clear license basis.
+
 欢迎改进这个 Skill。贡献应帮助它更准确、更可复现，或更安全地处理素材版权。
 
 ## 可以贡献什么
@@ -26,3 +28,10 @@ bash scripts/run_tests.sh
 - 核心工作流保持简洁、可执行、无平台偏见。
 - 事实与推断分开写；无法证实时明确说明。
 - 中文说明优先，必要时补充简短英文。
+
+## English Contribution Notes
+
+- Keep the core workflow concise, executable, and platform-neutral.
+- Separate verified facts from inference; say when something cannot be verified.
+- Keep real credentials out of commits, examples, issues, and logs.
+- When adding external media examples, label both download permission and reuse permission.

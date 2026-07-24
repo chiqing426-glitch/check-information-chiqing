@@ -1,5 +1,7 @@
 # Security Policy
 
+中文摘要：不要提交真实密钥、Cookie、私密视频、用户隐私、客户数据或未公开资料。腾讯云语音识别凭证只能由使用者在本地环境变量中自行配置，不能写进仓库、示例、issue 或日志。
+
 ## Supported Version
 
 This repository is currently an alpha Skill. Security fixes target the `main` branch.
@@ -29,3 +31,5 @@ The Douyin companion is experimental. It must not read cookies, localStorage, ac
 ## Reporting
 
 Open a GitHub issue for reproducible security problems. Do not include secrets, private videos, private transcripts, or personal data in the issue.
+
+中文报告规则：可以用 GitHub issue 报告可复现的安全问题，但不要在 issue 中包含密钥、私密视频、私密逐字稿或个人数据。

@@ -1,6 +1,10 @@
 # CheckInformation/chiqing
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 `CheckInformation/chiqing` is a Codex Skill for Chinese short-form creators and frontier-tech users. It helps an agent read scripts, links, or videos; extract claims; verify time-sensitive product statements; find tutorials and supporting material; label media reuse rights; and rewrite the result into a shoot-ready Chinese talking-head script.
+
+中文简介：`CheckInformation/chiqing` 是一个面向短视频创作者和前沿科技使用者的 Codex Skill。它用于读取文案、链接或视频，拆解可核验主张，查证时效性产品说法，寻找教程与延展素材，标注素材下载/复用版权状态，并改写成适合中文口播拍摄的稿件。
 
 This project is not legal advice, a universal news investigation tool, or a bypass for platform access controls.
 
@@ -32,6 +36,12 @@ Restart or refresh Codex, then call:
 
 ```text
 调用 check-information-chiqing，核实这篇内容，找教程与延展素材，并改成口播稿。
+```
+
+English prompt example:
+
+```text
+Use check-information-chiqing to fact-check this script/link/video, find tutorials and reference material, label media rights, and rewrite it as a Chinese talking-head script.
 ```
 
 ## Optional Video Stack
@@ -102,6 +112,8 @@ node scripts/douyin_companion/test-media-rules.mjs
 ```
 
 For full video tests, run `bash scripts/install-video-stack.sh` first.
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution rules. The project accepts bilingual documentation improvements, but the default final script output remains Simplified Chinese unless the user asks otherwise.
 
 ## Repository Layout
 
